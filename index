@@ -1,0 +1,302 @@
+# Richard Munoz
+# Final Project
+# May 17
+# 1250 10:30
+
+# This program will allow the user to access, add, delete, and edit a contact list.
+# It will include a help menu and an option to exit the program.
+
+# function for program menu
+def welcome():
+    print('This program will allow you to view a contact a list including add, delete, and edit a contact.')
+    print('For any questions regarding selections, refer to the help menu.')
+    print()
+    print('Enter "v" to view the contact list.')
+    print('Enter "a" to add a contact.')
+    print('Enter "d" to delete a contact.')
+    print('Enter "e" to edit a contact')
+    print('Enter "h" for help.')
+    print('Enter "x" to exit the program.')
+    
+# function for menu selection
+def selection():
+    print()
+    choice = input('Please enter a selection to interact with the contact list: ')
+    choice = choice.lower()
+    print()
+    
+    # input error check
+    while choice != "v" and choice != "a" and choice != "d" and choice != "e" and choice != "h" and choice != "x":
+        choice = input('ERROR! Please enter a valid selection...: ')
+        print()
+
+    return(choice)
+
+
+# function to view contact list
+def viewContact(contactList):
+    print()
+    print('-------------------------------------------------------')
+    for contact in range(len(contactList)):
+        print('Name:         ', contactList[contact][0])
+        print('Phone Number: ', contactList[contact][1])
+        print('E-mail:       ', contactList[contact][2])
+        print('-------------------------------------------------------')
+        print('-------------------------------------------------------')
+
+        
+# function to add a contact
+def addContact():
+
+    addName = input('Add a name to the contact list: ')
+    addNumber = input('Add a number to the contact list: ')
+    addEmail = input('Add an email to the contact list: ')
+    contactList.append([addName, addNumber, addEmail])
+            
+    print('Contact has been added to the contact list...')
+            
+
+# function to delete a contact
+def deleteContact(contactList):
+    checkList = []
+    
+    choice = input('Would you like to delete a contact through "name", "number", or "email": ')
+    choice = choice.lower()
+    print()
+        
+    # input error check
+    while choice != "name" and choice != "number" and choice != "email":
+        choice = input('ERROR! Please enter "name", "number", or "email": ')
+        print()
+
+    # delete contact by name
+    if choice == "name":
+        nameInput = input('Enter a name to delete the contact from the list: ')
+        print()
+
+        for contact in contactList:
+            checkList.append(contact[0])
+            
+        while nameInput not in checkList:
+            if nameInput == '':
+                print('No action taken...')
+                break
+
+            else:
+                nameInput = input('Enter a valid name from the contact list: ')
+        
+        for contact in contactList:
+            if nameInput == contact[0]:
+                del contact[2]
+                del contact[1]
+                del contact[0]
+                contactList = list(filter(None, contactList))
+                print('Contact has been deleted...')            
+
+
+    # delete contact by number
+    elif choice == "number":
+        numberInput = input('Enter a number to delete the contact from the list: ')
+        print()
+
+        for contact in contactList:
+            checkList.append(contact[1])     
+            
+        while numberInput not in checkList:
+            if numberInput == '':
+                print('No action taken...')
+                break
+            else:
+                numberInput = input('Enter a valid number from the contact list: ')
+                print()
+        
+        for contact in contactList:
+            if numberInput == contact[1]:
+                del contact[2]
+                del contact[1]
+                del contact[0]
+                contactList = list(filter(None, contactList))
+                print('Contact has been deleted...')
+                print()		
+            
+            
+    # delete contact by email
+    else:
+        emailInput = input('Enter the email you would like to delete: ')
+        print()
+
+        for contact in contactList:
+            checkList.append(contact[2])
+            
+        while emailInput not in checkList:
+            if numberInput == '':
+                print('No action taken...')
+                break
+            else:
+                emailInput = input('Enter a valid email from the contact list: ')
+                print()
+                
+        for contact in contactList:
+            if emailInput == contact[2]:
+                del contact[2]
+                del contact[1]
+                del contact[0]
+                contactList = list(filter(None, contactList))
+                print('Contact has been deleted...')
+                print()
+        
+    return(contactList)
+
+# function to edit contact
+def editContact(contactList):
+    checkList = []
+    
+    choice = input('Would you like to edit a contact through "name", "number", or "email": ')
+    choice = choice.lower()
+    print()
+
+    # input error check
+    while choice != "name" and choice != "number" and choice != "email":
+        choice = input('ERROR! Please enter "name", "number", or "email": ')
+        print()
+
+    # edit contact by name
+    if choice == "name":
+        nameInput = input('Enter a name from the contact list to edit: ')
+        print()
+
+        for contact in contactList:
+            checkList.append(contact[0])
+            
+        while nameInput not in checkList:
+            if nameInput == '':
+                print('No action taken...')
+                break
+            else:
+                nameInput = input('Enter a valid name from the contact list: ')
+                print()
+            
+        for contact in contactList:
+            if nameInput == contact[0]:
+                print('-------------------------------------------------------')
+                print('Name:         ', contact[0])
+                print('Phone Number: ', contact[1])
+                print('E-mail:       ', contact[2])
+                print('-------------------------------------------------------')
+                editName = input('Enter a new name for the contact: ')
+                contact[0] = editName
+                print()
+                print('Contact has been modified...')
+
+		
+    # edit contact by number
+    elif choice == "number":
+        numberInput = input('Enter a number from the contact list to edit: ')
+        print()
+
+        for contact in contactList:
+            checkList.append(contact[1])
+            
+        while numberInput not in checkList:
+            if numberInput == '':
+                print('No action taken...')
+                break
+            else:
+                numberInput = input('Enter a valid number from the contact list: ')
+                print()
+        
+        for contact in contactList:
+            if numberInput == contact[1]:
+                print('-------------------------------------------------------')
+                print('Name:         ', contact[0])
+                print('Phone Number: ', contact[1])
+                print('E-mail:       ', contact[2])
+                print('-------------------------------------------------------')
+                editNumber = input('Enter a new number for the contact: ')
+                contact[1] = editNumber
+                print()
+                print('Contact has been modified...')
+         
+            
+    # edit contact by email
+    else:
+        emailInput = input('Enter an email from the contact list to edit: ')
+
+        for contact in contactList:
+            checkList.append(contact[2])
+                
+        while emailInput not in checkList:
+            if emailInput == '':
+                print('No action taken...')
+                break
+            else:
+                emailInput = input('Enter a valid email from the contact list: ')
+            
+        for contact in contactList:
+            if emailInput == contact[2]:
+                print('-------------------------------------------------------')
+                print('Name:         ', contact[0])
+                print('Phone Number: ', contact[1])
+                print('E-mail:       ', contact[2])
+                print('-------------------------------------------------------')
+                editEmail = input('Enter a new e-mail address for the contact: ')
+                contact[2] = editEmail
+                print()
+                print('Contact has been modified...')        
+
+    return(contactList)
+
+
+# function for help menu
+def helpCode():
+    print('Enter "v" to view the contact list.')
+    print('Enter "a" to add a contact.')
+    print('Enter "d" to delete a contact.')
+    print('Enter "e" to edit the contact list.')
+    print('Enter "h" for help.')
+    print('Enter "x" to exit the program.')
+    print()
+
+    
+# ------------------------------MAIN-----------------------------
+
+# list containing contact information
+contactList = [['Peter Parker', '9518071572', 'spiderman@aol.com'],
+               ['Bruce Wayne', '9518071180', 'batman@aol.com'],
+               ['Bruce Banner', '9515819360', 'hulk@aol.com']]
+# call welcome function
+welcome()
+
+# call main loop with all functions
+run = True
+while run == True:
+
+    # elif statement for selection function
+    choice = selection()
+
+    # elif statement for view contact function
+    if choice == "v":
+        viewContact(contactList)
+
+    # elif statement for add contact function
+    elif choice == "a":
+        addContact()
+
+    # elif statement for delete contact function    
+    elif choice == "d":
+        contactList = deleteContact(contactList)
+
+    # elif statement for edit contact function
+    elif choice == "e":
+        contactList = editContact(contactList)
+
+    # elif statement for helpCode function
+    elif choice == "h":
+        helpCode()
+
+    # elif statement to exit program
+    else:
+        run = False
+        print('Have a great day!')
+
+
